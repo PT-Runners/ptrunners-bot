@@ -1,0 +1,29 @@
+{
+  "name": "ptr-discord-bot",
+  "version": "1.0.0",
+  "description": "PTRunners Discord Server's bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/D-Card/PTRunners-bot.git"
+  },
+  "author": "D-Card",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/D-Card/PTRunners-bot/issues"
+  },
+  "homepage": "https://github.com/D-Card/PTRunners-bot#readme",
+  "dependencies": {
+    "@discordjs/builders": "^0.8.2",
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "@sapphire/snowflake": "^2.1.4",
+    "discord-api-types": "^0.24.0",
+    "discord.js": "^13.3.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.2.0"
+  }
+}
