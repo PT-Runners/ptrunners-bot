@@ -14,7 +14,8 @@ module.exports = {
 			});
         }
         const name = interaction.user.username;
-        await interaction.channel.parent.createChannel(`ticket-\`${name}\``, {
+        const userId = interaction.user.id;
+        const channel = await interaction.channel.parent.createChannel(`ticket-${name}`, {
             type: 'GUILD_TEXT',
             permissionOverwrites: [
                {
@@ -30,6 +31,7 @@ module.exports = {
             position: 3,
             topic: `Ticket ${name}`,
           });
+        channel.send(`Olá <@${userId}>, segue o ticket aberto.`);
 		return interaction.reply({
 			content: 'Ticket criado! Podes agora dirigir-te ao channel e descrever o problema. Obrigado pelo report.',
 			ephemeral: true,
