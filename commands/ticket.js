@@ -18,7 +18,8 @@ module.exports = {
             ['Reportar um Staff', 'staff'],
 			['Pedido de unban', 'unban'],
 			['Outros', 'outros'],
-          ]),
+          ])
+          .setRequired(true),
         ),
     async execute(interaction) {
 		const problem = interaction.options.getString('tipo');
