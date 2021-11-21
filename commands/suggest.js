@@ -6,7 +6,7 @@ const talkedRecently = new Set();
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('sugestao')
+		.setName('suggest')
 		.setDescription('Cria uma sugestão')
 		.addStringOption(option =>
 			option
