@@ -3,27 +3,33 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('prune')
-		.setDescription('Prune up to 99 messages.')
-		.addIntegerOption(option => option.setName('amount').setDescription('Number of messages to prune')),
+		.setDescription('Apagar mensanges em bulk.')
+		.addIntegerOption(option => option.setName('amount').setDescription('Número de mensagens')),
 	async execute(interaction) {
 		const amount = interaction.options.getInteger('amount');
-
+		// ids das roles de staff
+		if (!interaction.member.roles.cache.has('911762806397894716')) {
+			return interaction.reply({
+				content: 'Não tens permissões para usar este comando.',
+				ephemeral: true,
+			});
+		}
 		if (amount <= 1 || amount > 100) {
 			return interaction.reply({
-				content: 'You need to input a number between 1 and 99.',
+				content: 'Escolhe um número entre 1 e 99.',
 				ephemeral: true,
 			});
 		}
 		await interaction.channel.bulkDelete(amount, true).catch(error => {
 			console.error(error);
 			interaction.reply({
-				content: 'There was an error trying to prune messages in this channel!',
+				content: 'Ocorreu um erro a apagar as mensagens.',
 				ephemeral: true,
 			});
 		});
 
 		return interaction.reply({
-			content: `Successfully pruned \`${amount}\` messages.`,
+			content: `${amount} mensagens apagadas.`,
 			ephemeral: true,
 		});
 	},
