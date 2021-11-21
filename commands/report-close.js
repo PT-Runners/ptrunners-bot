@@ -19,7 +19,6 @@ module.exports = {
                 interaction.channel.members.at(i).roles.remove(ticketsRole);
             }
         }
-
         interaction.channel.delete();
 	},
 };
