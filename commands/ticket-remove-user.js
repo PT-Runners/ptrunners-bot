@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { adminRole, reportsChannel, ticketsCategory } = require('./commands_config.json');
+const { staffRole, reportsChannel, ticketsCategory } = require('./commands_config.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -12,8 +12,7 @@ module.exports = {
 				.setRequired(true),
 			),
 	async execute(interaction) {
-        // ids das roles de staff
-		if (!interaction.member.roles.cache.has(adminRole)) {
+		if (!interaction.member.roles.cache.has(staffRole)) {
 			return interaction.reply({
 				content: 'Não tens permissões para usar este comando.',
 				ephemeral: true,
@@ -26,8 +25,7 @@ module.exports = {
                 ephemeral: true,
            });
         }
-        // ids das roles de staff
-        if (interaction.guild.members.cache.get(interaction.options.getUser('user').id).roles.cache.has(adminRole)) {
+        if (interaction.guild.members.cache.get(interaction.options.getUser('user').id).roles.cache.has(staffRole)) {
             return interaction.reply({
                 content: 'Não podes remover staff!',
                 ephemeral: true,

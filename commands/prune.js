@@ -8,7 +8,7 @@ module.exports = {
 		.addIntegerOption(option => option.setName('amount').setDescription('Número de mensagens')),
 	async execute(interaction) {
 		const amount = interaction.options.getInteger('amount');
-		// ids das roles de staff
+		// id da role de staff
 		if (!interaction.member.roles.cache.has(adminRole)) {
 			return interaction.reply({
 				content: 'Não tens permissões para usar este comando.',

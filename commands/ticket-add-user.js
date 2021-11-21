@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { adminRole, reportsChannel, ticketsCategory } = require('./commands_config.json');
+const { staffRole, reportsChannel, ticketsCategory } = require('./commands_config.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -12,8 +12,7 @@ module.exports = {
 				.setRequired(true),
 			),
 	async execute(interaction) {
-        // ids das roles de staff
-		if (!interaction.member.roles.cache.has(adminRole)) {
+		if (!interaction.member.roles.cache.has(staffRole)) {
 			return interaction.reply({
 				content: 'Não tens permissões para usar este comando.',
 				ephemeral: true,
