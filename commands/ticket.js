@@ -17,6 +17,7 @@ module.exports = {
             ['Reportar um problema com Vip', 'vip'],
             ['Reportar um problema no Discord', 'discord'],
             ['Reportar um Staff', 'staff'],
+			['Reportar um bug no bot de Discord', 'bot'],
 			['Pedido de unban', 'unban'],
 			['Outros', 'outros'],
           ])
@@ -38,7 +39,7 @@ module.exports = {
 		}
 		const name = interaction.user.username;
 		const userId = interaction.user.id;
-		if (problem == 'server' || problem == 'site' || problem == 'vip') {
+		if (problem == 'server' || problem == 'site' || problem == 'vip' || problem == 'bot') {
 			const channel = await interaction.channel.parent.createChannel(`ticket-${name}`, {
 				type: 'GUILD_TEXT',
 				permissionOverwrites: [
