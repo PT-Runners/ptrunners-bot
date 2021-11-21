@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { adminRole } = require('./commands_config.json');
+const { staffRole } = require('./commands_config.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -8,8 +8,7 @@ module.exports = {
 		.addIntegerOption(option => option.setName('amount').setDescription('Número de mensagens')),
 	async execute(interaction) {
 		const amount = interaction.options.getInteger('amount');
-		// id da role de staff
-		if (!interaction.member.roles.cache.has(adminRole)) {
+		if (!interaction.member.roles.cache.has(staffRole)) {
 			return interaction.reply({
 				content: 'Não tens permissões para usar este comando.',
 				ephemeral: true,
