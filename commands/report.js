@@ -1,22 +1,22 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Permissions } = require('discord.js');
-const { memberRole, reportChannel, ticketsRole } = require('./commands_config.json');
+const { memberRole, reportsChannel, ticketsRole } = require('./commands_config.json');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('report')
 		.setDescription('Reporta um player ou problema. Um ticket será criado.'),
 	async execute(interaction) {
-        if (interaction.member.roles.cache.has(ticketsRole)) {
-            return interaction.reply({
-                content: 'Já tens um ticket aberto. Se tens mais problemas podes utilizar o mesmo ticket ou criar um novo depois deste ser fechado.',
-                ephemeral: true,
-            });
+        if (interaction.channel.id != reportsChannel) {
+          return interaction.reply({
+            content: 'Utiliza o channel adequado para fazer reports.',
+            ephemeral: true,
+          });
         }
-        if (interaction.channel.id != reportChannel) {
-			return interaction.reply({
-				content: 'Utiliza o channel adequado para fazer reports.',
-				ephemeral: true,
-			});
+        if (interaction.member.roles.cache.has(ticketsRole)) {
+          return interaction.reply({
+              content: 'Já tens um ticket aberto. Se tens mais problemas podes utilizar o mesmo ticket ou criar um novo depois deste ser fechado.',
+              ephemeral: true,
+          });
         }
         const name = interaction.user.username;
         const userId = interaction.user.id;
