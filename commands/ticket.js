@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Permissions } = require('discord.js');
 const { memberRole, reportsChannel, ticketsRole, staffRole, adminRole, devRole } = require('./commands_config.json');
+
 module.exports = {
     data: new SlashCommandBuilder()
       .setName('ticket')
