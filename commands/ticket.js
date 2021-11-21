@@ -59,7 +59,7 @@ module.exports = {
 			});
 			channel.send(`Olá <@${userId}>, descreve aqui o problema.`);
 		}
-		else if (problem == 'staff' || problem == 'unban') {
+		else if (problem == 'staff') {
 			const channel = await interaction.channel.parent.createChannel(`ticket-${name}`, {
 				type: 'GUILD_TEXT',
 				permissionOverwrites: [
