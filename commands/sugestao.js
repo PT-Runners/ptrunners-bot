@@ -42,7 +42,6 @@ module.exports = {
 			embeds: [
 				new MessageEmbed()
 					.setColor('DARK_AQUA')
-					// .setAuthor(interaction.user.username, interaction.user.displayAvatarURL())
 					.setTitle(interaction.options.getString('título'))
 					.setDescription(interaction.options.getString('sugestão'))
 					.setFooter(`Sugestão feita por ${interaction.user.username}`, ptrImage),
