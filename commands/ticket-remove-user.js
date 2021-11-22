@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { staffRole, reportsChannel, ticketsCategory } = require('./commands_config.json');
+const { staffRole, ticketsChannel, ticketsCategory } = require('./commands_config.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -19,7 +19,7 @@ module.exports = {
 			});
 		}
         if (interaction.channel.parentId != ticketsCategory ||
-            interaction.channel.id == reportsChannel) {
+            interaction.channel.id == ticketsChannel) {
             return interaction.reply({
                 content: 'Isto não é um ticket!',
                 ephemeral: true,

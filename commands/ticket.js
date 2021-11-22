@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Permissions } = require('discord.js');
-const { memberRole, reportsChannel, ticketsRole, staffRole, adminRole, devRole } = require('./commands_config.json');
+const { memberRole, ticketsChannel, ticketsRole, staffRole, adminRole, devRole } = require('./commands_config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -25,7 +25,7 @@ module.exports = {
         ),
     async execute(interaction) {
 		const problem = interaction.options.getString('tipo');
-		if (interaction.channel.id != reportsChannel) {
+		if (interaction.channel.id != ticketsChannel) {
 			return interaction.reply({
 				content: 'Utiliza o channel adequado para fazer reports.',
 				ephemeral: true,

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { reportsChannel, ticketsRole, ticketsCategory } = require('./commands_config.json');
+const { ticketsChannel, ticketsRole, ticketsCategory } = require('./commands_config.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -8,7 +8,7 @@ module.exports = {
 	async execute(interaction) {
         //  no need to check for roles since everyone who can see the ticket can close it
         if (interaction.channel.parentId != ticketsCategory ||
-            interaction.channel.id == reportsChannel) {
+            interaction.channel.id == ticketsChannel) {
             return interaction.reply({
                 content: 'Isto não é um ticket!',
                 ephemeral: true,
