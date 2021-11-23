@@ -39,10 +39,9 @@ module.exports = {
 		}
 		const name = interaction.user.username;
 		const userId = interaction.user.id;
+		let permissionFlags;
 		if (problem == 'server' || problem == 'site' || problem == 'vip' || problem == 'bot') {
-			const channel = await interaction.channel.parent.createChannel(`ticket-${name}`, {
-				type: 'GUILD_TEXT',
-				permissionOverwrites: [
+			permissionFlags = [
 				{
 					id: interaction.guild.roles.resolve(memberRole),
 					deny: [Permissions.FLAGS.VIEW_CHANNEL],
@@ -55,56 +54,47 @@ module.exports = {
 					id: interaction.guild.roles.resolve(devRole),
 					allow: [Permissions.FLAGS.VIEW_CHANNEL],
 				},
-				],
-				position: 3,
-				topic: `Ticket ${name} - ${problem}`,
-			});
-			channel.send(`Olá <@${userId}>, descreve aqui o problema.`);
+				];
 		}
 		else if (problem == 'staff') {
-			const channel = await interaction.channel.parent.createChannel(`ticket-${name}`, {
-				type: 'GUILD_TEXT',
-				permissionOverwrites: [
-				{
-					id: interaction.guild.roles.resolve(memberRole),
-					deny: [Permissions.FLAGS.VIEW_CHANNEL],
-				},
-				{
-					id: userId,
-					allow: [Permissions.FLAGS.VIEW_CHANNEL],
-				},
-				{
-					id: interaction.guild.roles.resolve(adminRole),
-					allow: [Permissions.FLAGS.VIEW_CHANNEL],
-				},
-				],
-				position: 3,
-				topic: `Ticket ${name} - ${problem}`,
-			});
-			channel.send(`Olá <@${userId}>, descreve aqui o problema.`);
+			permissionFlags = [
+					{
+						id: interaction.guild.roles.resolve(memberRole),
+						deny: [Permissions.FLAGS.VIEW_CHANNEL],
+					},
+					{
+						id: userId,
+						allow: [Permissions.FLAGS.VIEW_CHANNEL],
+					},
+					{
+						id: interaction.guild.roles.resolve(adminRole),
+						allow: [Permissions.FLAGS.VIEW_CHANNEL],
+					},
+					];
 		}
 		else {
-			const channel = await interaction.channel.parent.createChannel(`ticket-${name}`, {
-				type: 'GUILD_TEXT',
-				permissionOverwrites: [
-				{
-					id: interaction.guild.roles.resolve(memberRole),
-					deny: [Permissions.FLAGS.VIEW_CHANNEL],
-				},
-				{
-					id: userId,
-					allow: [Permissions.FLAGS.VIEW_CHANNEL],
-				},
-				{
-					id: interaction.guild.roles.resolve(staffRole),
-					allow: [Permissions.FLAGS.VIEW_CHANNEL],
-				},
-				],
-				position: 3,
-				topic: `Ticket ${name} - ${problem}`,
-			});
-			channel.send(`Olá <@${userId}>, descreve aqui o problema.`);
+			permissionFlags = [
+					{
+						id: interaction.guild.roles.resolve(memberRole),
+						deny: [Permissions.FLAGS.VIEW_CHANNEL],
+					},
+					{
+						id: userId,
+						allow: [Permissions.FLAGS.VIEW_CHANNEL],
+					},
+					{
+						id: interaction.guild.roles.resolve(staffRole),
+						allow: [Permissions.FLAGS.VIEW_CHANNEL],
+					},
+					];
 		}
+		const channel = await interaction.channel.parent.createChannel(`ticket-${name}`, {
+			type: 'GUILD_TEXT',
+			permissionOverwrites: permissionFlags,
+			position: 3,
+			topic: `Ticket ${name} - ${problem}`,
+		});
+		channel.send(`Olá <@${userId}>, descreve aqui o problema.`);
 		interaction.member.roles.add(ticketsRole);
 		return interaction.reply({
 			content: 'Ticket criado! Podes agora dirigir-te ao channel e descrever o problema. Obrigado pelo report.',
