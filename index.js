@@ -1,8 +1,9 @@
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const { token, game } = require('./config.json');
+const { ticketsChannel, suggestionsChannel, verificationChannel } = require('./commands/commands_config.json');
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -29,6 +30,17 @@ client.on('interactionCreate', async interaction => {
 	} catch (error) {
 		console.error(error);
 		return interaction.reply({ content: 'Erro a executar o comando. Vê as logs para detalhes.', ephemeral: true });
+	}
+});
+
+client.on('messageCreate', msg => {
+    if ((msg.channel == ticketsChannel || msg.channel == suggestionsChannel) && msg.author.bot == false) {
+		msg.delete();
+	}
+	if (msg.channel == verificationChannel) {
+		setTimeout(function() {
+			msg.delete();
+		}, 1000 * 30);
 	}
 });
 
