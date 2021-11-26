@@ -2,6 +2,7 @@
 	"ticketsCategory": "",
     "ticketsChannel": "",
 	"suggestionsChannel": "",
+	"verificationChannel": "",
     "ticketsRole": "",
     "memberRole": "",
     "adminRole": "",
