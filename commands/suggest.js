@@ -41,7 +41,7 @@ module.exports = {
 			components: [],
 			embeds: [
 				new MessageEmbed()
-					.setColor('DARK_AQUA')
+					.setColor('RANDOM')
 					.setTitle(interaction.options.getString('título'))
 					.setDescription(interaction.options.getString('sugestão'))
 					.setFooter(`Sugestão feita por ${interaction.user.username}`, ptrImage),
