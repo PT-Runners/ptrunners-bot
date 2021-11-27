@@ -4,7 +4,7 @@ const { ticketsChannel, ticketsRole, ticketsCategory } = require('./commands_con
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('close-ticket')
-		.setDescription('Fecha o ticket onde o comando é chamado. Irreversível!'),
+		.setDescription('Fecha o ticket onde o comando é chamado'),
 	async execute(interaction) {
         //  no need to check for roles since everyone who can see the ticket can close it
         if (interaction.channel.parentId != ticketsCategory ||
