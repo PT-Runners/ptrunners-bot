@@ -91,7 +91,7 @@ module.exports = {
 		const channel = await interaction.channel.parent.createChannel(`ticket-${name}`, {
 			type: 'GUILD_TEXT',
 			permissionOverwrites: permissionFlags,
-			position: 3,
+			position: 6,
 			topic: `Ticket ${name} - ${problem}`,
 		});
 		channel.send(`Olá <@${userId}>, descreve aqui o problema.`);
