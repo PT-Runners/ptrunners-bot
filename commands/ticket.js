@@ -5,7 +5,7 @@ const { memberRole, ticketsChannel, ticketsRole, staffRole, adminRole, devRole }
 module.exports = {
     data: new SlashCommandBuilder()
       .setName('ticket')
-      .setDescription('Reporta um player ou problema. Um ticket será criado.')
+      .setDescription('Reporta um player ou problema. Um ticket será criado')
       .addStringOption(option =>
         option
           .setName('tipo')

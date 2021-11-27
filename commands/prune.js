@@ -4,7 +4,7 @@ const { staffRole } = require('./commands_config.json');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('prune')
-		.setDescription('Apagar mensanges em bulk.')
+		.setDescription('Apaga mensanges em bulk')
 		.addIntegerOption(option => option.setName('amount').setDescription('Número de mensagens')),
 	async execute(interaction) {
 		const amount = interaction.options.getInteger('amount');

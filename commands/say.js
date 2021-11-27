@@ -4,7 +4,7 @@ const { devRole } = require('./commands_config.json');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('say')
-		.setDescription('Enviar uma mensagem pelo bot.')
+		.setDescription('Envia uma mensagem pelo bot')
         .addStringOption(option =>
 			option
 				.setName('mensagem')

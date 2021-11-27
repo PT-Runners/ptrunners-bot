@@ -4,7 +4,7 @@ const { staffRole, ticketsChannel, ticketsCategory } = require('./commands_confi
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('add-user')
-		.setDescription('Adiciona um user ao ticket onde é chamado.')
+		.setDescription('Adiciona um user ao ticket onde é chamado')
         .addUserOption(option =>
 			option
 				.setName('user')

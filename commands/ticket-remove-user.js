@@ -4,7 +4,7 @@ const { staffRole, ticketsChannel, ticketsCategory } = require('./commands_confi
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('remove-user')
-		.setDescription('Remove um user do ticket onde é chamado.')
+		.setDescription('Remove um user do ticket onde é chamado')
         .addUserOption(option =>
 			option
 				.setName('user')
