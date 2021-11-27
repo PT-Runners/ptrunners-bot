@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
+const { ptrImage } = require('./commands_config.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -11,8 +12,7 @@ module.exports = {
 			embeds: [
 				new MessageEmbed()
 					.setColor('RANDOM')
-					.setURL('https://ptrunners.net/bans')
-					.setTitle('PTRunners - Bans')
+					.setAuthor('​PTRunners - Bans', ptrImage, 'https://ptrunners.net')
 					.setDescription(
                         'Acede ao website acima para acederes à base de dados dos bans.',
                     ),
