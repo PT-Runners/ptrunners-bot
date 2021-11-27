@@ -19,7 +19,7 @@ module.exports = {
 			embeds: [
 				new MessageEmbed()
 					.setColor('RANDOM')
-					.setAuthor('Website', ptrImage, 'https://ptrunners.net')
+					.setAuthor('​', ptrImage, 'https://ptrunners.net')
 					.setTitle('PTRunners Discord Bot - Comandos')
 					.setDescription(
                         commands,

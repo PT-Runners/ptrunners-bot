@@ -21,7 +21,7 @@ module.exports = {
 			embeds: [
 				new MessageEmbed()
 					.setColor('RANDOM')
-					.setAuthor('Website', ptrImage, 'https://ptrunners.net')
+					.setAuthor('​', ptrImage, 'https://ptrunners.net')
 					.setTitle('PTRunners Discord Bot')
 					.setDescription(
                         `Made with :heart: by <@351410153523904513>
