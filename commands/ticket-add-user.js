@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { staffRole, ticketsChannel, ticketsCategory } = require('./commands_config.json');
 
@@ -28,7 +29,15 @@ module.exports = {
         await interaction.channel.permissionOverwrites.edit(interaction.options.getUser('user'), {
 			VIEW_CHANNEL: true,
 		});
-		console.log(`${interaction.user.username} added ${interaction.options.getUser('user')} to ${interaction.channel.id}.`);
+		const date = new Date();
+		const cDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+		const cTime = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+		const dateTime = cDate + ' | ' + cTime;
+		fs.appendFile('logs.txt', `${dateTime}: ${interaction.user.username} added ${interaction.options.getUser('user')} to ${interaction.channel.name}.\n`, err => {
+			if (err) {
+				return console.error(err);
+			}
+		});
 		return interaction.reply({
 			content: 'User adicionado!',
 			ephemeral: true,

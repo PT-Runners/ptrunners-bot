@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { staffRole, ticketsChannel, ticketsCategory } = require('./commands_config.json');
 
@@ -34,7 +35,15 @@ module.exports = {
         await interaction.channel.permissionOverwrites.edit(interaction.options.getUser('user'), {
 			VIEW_CHANNEL: false,
 		});
-		console.log(`${interaction.user.username} removed ${interaction.options.getUser('user').id} from ${interaction.channel.id}`);
+		const date = new Date();
+		const cDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+		const cTime = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+		const dateTime = cDate + ' | ' + cTime;
+		fs.appendFile('logs.txt', `${dateTime}: ${interaction.user.username} removed ${interaction.options.getUser('user').id} from ${interaction.channel.name}\n`, err => {
+			if (err) {
+				return console.error(err);
+			}
+		});
 		return interaction.reply({
 			content: 'User removido!',
 			ephemeral: true,

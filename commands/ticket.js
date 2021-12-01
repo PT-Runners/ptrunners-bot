@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Permissions } = require('discord.js');
 const { memberRole, ticketsChannel, ticketsRole, staffRole, adminRole, devRole } = require('./commands_config.json');
@@ -96,7 +97,15 @@ module.exports = {
 		});
 		channel.send(`Olá <@${userId}>, descreve aqui o problema.`);
 		interaction.member.roles.add(ticketsRole);
-		console.log(`${name} opened ticket - ${problem}.`);
+		const date = new Date();
+		const cDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+		const cTime = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+		const dateTime = cDate + ' | ' + cTime;
+		fs.appendFile('logs.txt', `${dateTime}: ${name} opened ticket - ${problem}.\n`, err => {
+			if (err) {
+				return console.error(err);
+			}
+		});
 		return interaction.reply({
 			content: 'Ticket criado! Podes agora dirigir-te ao channel e descrever o problema. Obrigado pelo report.',
 			ephemeral: true,

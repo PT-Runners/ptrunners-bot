@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
 const { ptrImage } = require('./commands_config.json');
@@ -25,13 +26,21 @@ module.exports = {
 					.setTitle('PTRunners Discord Bot')
 					.setDescription(
                         `Made with :heart: by <@351410153523904513>
-                        version 1.2.2`,
+                        version 1.3.0`,
                     )
 					.setFooter(`Uptime: ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds `),
 			],
             ephemeral: true,
 		};
-		console.log(`${interaction.user.username} requested about info.`);
+		const date = new Date();
+		const cDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+		const cTime = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+		const dateTime = cDate + ' | ' + cTime;
+		fs.appendFile('logs.txt', `${dateTime}: ${interaction.user.username} requested about info.\n`, err => {
+			if (err) {
+				return console.error(err);
+			}
+		});
 		interaction.reply(response);
     },
 };

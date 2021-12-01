@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
 const { suggestionsChannel, ptrImage } = require('./commands_config.json');
@@ -48,7 +49,15 @@ module.exports = {
 			],
 			fetchReply: true,
 		};
-		console.log(`${interaction.user.username} made a suggestion`);
+		const date = new Date();
+		const cDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+		const cTime = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+		const dateTime = cDate + ' | ' + cTime;
+		fs.appendFile('logs.txt', `${dateTime}: ${interaction.user.username} made a suggestion\n`, err => {
+			if (err) {
+				return console.error(err);
+			}
+		});
 		const message = await interaction.reply(response);
 		message.react('✅');
 		message.react('❌');

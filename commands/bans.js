@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
 const { ptrImage } = require('./commands_config.json');
@@ -19,7 +20,15 @@ module.exports = {
 			],
             ephemeral: true,
 		};
-		console.log(`${interaction.user.username} requested ban info.`);
+		const date = new Date();
+		const cDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+		const cTime = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+		const dateTime = cDate + ' | ' + cTime;
+		fs.appendFile('logs.txt', `${dateTime}: ${interaction.user.username} requested ban info.\n`, err => {
+			if (err) {
+				return console.error(err);
+			}
+		});
 		interaction.reply(response);
     },
 };

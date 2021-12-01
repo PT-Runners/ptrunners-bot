@@ -27,7 +27,15 @@ module.exports = {
 			],
             ephemeral: true,
 		};
-		console.log(`${interaction.user.username} requested help info.`);
+		const date = new Date();
+		const cDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+		const cTime = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+		const dateTime = cDate + ' | ' + cTime;
+		fs.appendFile('logs.txt', `${dateTime}: ${interaction.user.username} requested help info.\n`, err => {
+			if (err) {
+				return console.error(err);
+			}
+		});
 		interaction.reply(response);
     },
 };

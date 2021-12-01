@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { devRole } = require('./commands_config.json');
 
@@ -19,7 +20,15 @@ module.exports = {
 			});
 		}
 		await interaction.channel.send(interaction.options.getString('mensagem'));
-		console.log(`${interaction.user.username} used say command.`);
+		const date = new Date();
+		const cDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+		const cTime = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+		const dateTime = cDate + ' | ' + cTime;
+		fs.appendFile('logs.txt', `${dateTime}: ${interaction.user.username} used say command.\n`, err => {
+			if (err) {
+				return console.error(err);
+			}
+		});
 		return interaction.reply({
 			content: 'Mensagem enviada.',
 			ephemeral: true,

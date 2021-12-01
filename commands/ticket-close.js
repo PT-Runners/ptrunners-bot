@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { ticketsChannel, ticketsRole, ticketsCategory } = require('./commands_config.json');
 
@@ -19,7 +20,15 @@ module.exports = {
                 interaction.channel.members.at(i).roles.remove(ticketsRole);
             }
         }
-        console.log(`${interaction.user.username} closed ticket ${interaction.channel.id}.`);
+        const date = new Date();
+		const cDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+		const cTime = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+		const dateTime = cDate + ' | ' + cTime;
+        fs.appendFile('logs.txt', `${dateTime}: ${interaction.user.username} closed ticket ${interaction.channel.name}.\n`, err => {
+			if (err) {
+				return console.error(err);
+			}
+		});
         interaction.channel.delete();
 	},
 };
