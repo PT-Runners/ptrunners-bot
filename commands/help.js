@@ -27,6 +27,7 @@ module.exports = {
 			],
             ephemeral: true,
 		};
+		console.log(`${interaction.user.id} requested help info.`);
 		interaction.reply(response);
     },
 };

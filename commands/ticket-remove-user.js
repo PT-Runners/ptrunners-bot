@@ -34,6 +34,7 @@ module.exports = {
         await interaction.channel.permissionOverwrites.edit(interaction.options.getUser('user'), {
 			VIEW_CHANNEL: false,
 		});
+		console.log(`${interaction.user.id} removed ${interaction.options.getUser('user').id} from ${interaction.channel.id}`);
 		return interaction.reply({
 			content: 'User removido!',
 			ephemeral: true,

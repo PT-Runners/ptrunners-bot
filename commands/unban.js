@@ -21,6 +21,7 @@ module.exports = {
 			],
             ephemeral: true,
 		};
+		console.log(`${interaction.user.id} requested unban info.`);
 		interaction.reply(response);
 	},
 };

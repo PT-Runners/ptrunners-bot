@@ -96,6 +96,7 @@ module.exports = {
 		});
 		channel.send(`Olá <@${userId}>, descreve aqui o problema.`);
 		interaction.member.roles.add(ticketsRole);
+		console.log(`${name} opened ticket - ${problem}.`);
 		return interaction.reply({
 			content: 'Ticket criado! Podes agora dirigir-te ao channel e descrever o problema. Obrigado pelo report.',
 			ephemeral: true,

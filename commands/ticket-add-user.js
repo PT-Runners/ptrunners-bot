@@ -28,6 +28,7 @@ module.exports = {
         await interaction.channel.permissionOverwrites.edit(interaction.options.getUser('user'), {
 			VIEW_CHANNEL: true,
 		});
+		console.log(`${interaction.user.id} added ${interaction.options.getUser('user')} to ${interaction.channel.id}.`);
 		return interaction.reply({
 			content: 'User adicionado!',
 			ephemeral: true,

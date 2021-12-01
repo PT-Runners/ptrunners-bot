@@ -16,6 +16,7 @@ module.exports = {
 			],
             ephemeral: true,
 		};
+		console.log(`${interaction.user.id} requested website info.`);
 		interaction.reply(response);
     },
 };

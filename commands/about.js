@@ -31,6 +31,7 @@ module.exports = {
 			],
             ephemeral: true,
 		};
+		console.log(`${interaction.user.id} requested about info.`);
 		interaction.reply(response);
     },
 };

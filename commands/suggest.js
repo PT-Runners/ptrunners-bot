@@ -48,6 +48,7 @@ module.exports = {
 			],
 			fetchReply: true,
 		};
+		console.log(`${interaction.user.id} made a suggestion`);
 		const message = await interaction.reply(response);
 		message.react('✅');
 		message.react('❌');
