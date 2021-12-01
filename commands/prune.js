@@ -27,7 +27,7 @@ module.exports = {
 				ephemeral: true,
 			});
 		});
-		console.log(`${interaction.user.id} pruned ${amount} messages in ${interaction.channel.id}`);
+		console.log(`${interaction.user.username} pruned ${amount} messages in ${interaction.channel.id}`);
 		return interaction.reply({
 			content: `${amount} mensagens apagadas.`,
 			ephemeral: true,

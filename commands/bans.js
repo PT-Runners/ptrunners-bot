@@ -19,7 +19,7 @@ module.exports = {
 			],
             ephemeral: true,
 		};
-		console.log(`${interaction.user.id} requested ban info.`);
+		console.log(`${interaction.user.username} requested ban info.`);
 		interaction.reply(response);
     },
 };

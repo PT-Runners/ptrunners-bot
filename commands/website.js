@@ -16,7 +16,7 @@ module.exports = {
 			],
             ephemeral: true,
 		};
-		console.log(`${interaction.user.id} requested website info.`);
+		console.log(`${interaction.user.username} requested website info.`);
 		interaction.reply(response);
     },
 };

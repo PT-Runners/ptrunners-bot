@@ -19,7 +19,7 @@ module.exports = {
 			});
 		}
 		await interaction.channel.send(interaction.options.getString('mensagem'));
-		console.log(`${interaction.user.id} used say command.`);
+		console.log(`${interaction.user.username} used say command.`);
 		return interaction.reply({
 			content: 'Mensagem enviada.',
 			ephemeral: true,

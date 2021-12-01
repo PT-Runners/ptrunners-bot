@@ -19,7 +19,7 @@ module.exports = {
                 interaction.channel.members.at(i).roles.remove(ticketsRole);
             }
         }
-        console.log(`${interaction.user.id} closed ticket ${interaction.channel.id}.`);
+        console.log(`${interaction.user.username} closed ticket ${interaction.channel.id}.`);
         interaction.channel.delete();
 	},
 };
