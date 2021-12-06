@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
-const { ptrImage, ticketsChannel } = require('./commands_config.json');
+const { botLogs, ptrImage, ticketsChannel } = require('./commands_config.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -26,6 +26,9 @@ module.exports = {
 		const cDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 		const cTime = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
 		const dateTime = cDate + ' | ' + cTime;
+		interaction.guild.channels.fetch(botLogs).then(logChannel =>
+			{ logChannel.send(`${dateTime}: <@${interaction.user.id}> requested unban info.`);
+		});
 		fs.appendFile('logs.txt', `${dateTime}: ${interaction.user.username} requested unban info.\n`, err => {
 			if (err) {
 				return console.error(err);

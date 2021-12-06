@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Permissions } = require('discord.js');
-const { memberRole, ticketsChannel, ticketsRole, staffRole, adminRole, devRole } = require('./commands_config.json');
+const { botLogs, memberRole, ticketsChannel, ticketsRole, staffRole, adminRole, devRole } = require('./commands_config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -101,7 +101,10 @@ module.exports = {
 		const cDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 		const cTime = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
 		const dateTime = cDate + ' | ' + cTime;
-		fs.appendFile('logs.txt', `${dateTime}: ${name} opened ticket - ${problem}.\n`, err => {
+		interaction.guild.channels.fetch(botLogs).then(logChannel =>
+			{ logChannel.send(`${dateTime}: ${name} opened ticket - ${problem}.`);
+		});
+		fs.appendFile('logs.txt', `${dateTime}: <@${userId}> opened ticket - ${problem}.\n`, err => {
 			if (err) {
 				return console.error(err);
 			}

@@ -3,6 +3,7 @@
     	"ticketsChannel": "",
 	"suggestionsChannel": "",
 	"verificationChannel": "",
+	"botLogs": "",
    	"ticketsRole": "",
     	"memberRole": "",
     	"adminRole": "",
