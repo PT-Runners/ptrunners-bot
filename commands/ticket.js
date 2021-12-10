@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { Permissions } = require('discord.js');
-const { botLogs, memberRole, ticketsChannel, ticketsRole, staffRole, adminRole, devRole } = require('./commands_config.json');
+const { botLogs, ticketsChannel, ticketsRole, staffRole, adminRole, devRole } = require('./commands_config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -44,7 +44,7 @@ module.exports = {
 		if (problem == 'server' || problem == 'site' || problem == 'vip' || problem == 'bot') {
 			permissionFlags = [
 				{
-					id: interaction.guild.roles.resolve(memberRole),
+					id: interaction.guild.roles.resolve(interaction.guild.roles.everyone.id),
 					deny: [Permissions.FLAGS.VIEW_CHANNEL],
 				},
 				{
@@ -60,7 +60,7 @@ module.exports = {
 		else if (problem == 'staff') {
 			permissionFlags = [
 					{
-						id: interaction.guild.roles.resolve(memberRole),
+						id: interaction.guild.roles.resolve(interaction.guild.roles.everyone.id),
 						deny: [Permissions.FLAGS.VIEW_CHANNEL],
 					},
 					{
@@ -76,7 +76,7 @@ module.exports = {
 		else {
 			permissionFlags = [
 					{
-						id: interaction.guild.roles.resolve(memberRole),
+						id: interaction.guild.roles.resolve(interaction.guild.roles.everyone.id),
 						deny: [Permissions.FLAGS.VIEW_CHANNEL],
 					},
 					{
