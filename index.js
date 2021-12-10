@@ -39,7 +39,9 @@ client.on('messageCreate', msg => {
 	}
 	if (msg.channel == verificationChannel) {
 		setTimeout(function() {
-			msg.delete();
+			msg.delete().catch(error => {
+				console.error(error);
+				});
 		}, 1000 * 30);
 	}
 });
