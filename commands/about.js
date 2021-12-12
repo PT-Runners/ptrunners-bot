@@ -26,7 +26,7 @@ module.exports = {
 					.setTitle('PTRunners Discord Bot')
 					.setDescription(
                         `Made with :heart: by <@351410153523904513>
-                        version 1.3.1`,
+                        version 1.4.1`,
                     )
 					.setFooter(`Uptime: ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds `),
 			],

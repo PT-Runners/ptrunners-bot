@@ -24,9 +24,9 @@ module.exports = {
 		const cTime = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
 		const dateTime = cDate + ' | ' + cTime;
 		interaction.guild.channels.fetch(botLogs).then(logChannel =>
-			{ logChannel.send(`${dateTime}: <@${interaction.user.id}> requested about info.`);
+			{ logChannel.send(`${dateTime}: <@${interaction.user.id}> requested gametracker info.`);
 		});
-		fs.appendFile('logs.txt', `${dateTime}: ${interaction.user.username} requested about info.\n`, err => {
+		fs.appendFile('logs.txt', `${dateTime}: ${interaction.user.username} requested gametracker info.\n`, err => {
 			if (err) {
 				return console.error(err);
 			}
