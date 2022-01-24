@@ -1,4 +1,9 @@
+const http = require('./http_requests/http.js');
+
 const fs = require('fs');
+const express = require('express')
+const app = express()
+const port = 3000
 const { Client, Collection, Intents } = require('discord.js');
 const { token, game } = require('./config.json');
 const { ticketsChannel, suggestionsChannel, verificationChannel } = require('./commands/commands_config.json');
@@ -11,7 +16,7 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.data.name, command);
-}
+};
 
 client.once('ready', () => {
 	console.log('Ready!');
@@ -47,3 +52,12 @@ client.on('messageCreate', msg => {
 });
 
 client.login(token);
+
+app.get('/create-gang', (req, res) => {
+	res.send('Creating gang role!');
+	http.create_gang(client, req);
+  })
+  
+  app.listen(port, () => {
+	console.log(`Listening on port ${port}`)
+  })
