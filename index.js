@@ -1,9 +1,9 @@
 const http = require('./http_requests/http.js');
 
 const fs = require('fs');
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const app = express();
+const port = 3000;
 const { Client, Collection, Intents } = require('discord.js');
 const { token, game } = require('./config.json');
 const { ticketsChannel, suggestionsChannel, verificationChannel } = require('./commands/commands_config.json');
