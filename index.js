@@ -16,7 +16,7 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.data.name, command);
-};
+}
 
 client.once('ready', () => {
 	console.log('Ready!');
@@ -56,8 +56,8 @@ client.login(token);
 app.get('/create-gang', (req, res) => {
 	res.send('Creating gang role!');
 	http.create_gang(client, req);
-  })
-  
+  });
+
   app.listen(port, () => {
 	console.log(`Listening on port ${port}`)
-  })
+  });
