@@ -4,3 +4,4 @@ config.json
 .eslintrc.json
 commands/commands_config.json
 logs.txt
+package-lock.json
