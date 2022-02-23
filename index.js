@@ -73,8 +73,9 @@ app.post('/webhooks/create-gang', (req, res) => {
 		res.redirect('/error');
 	}
 	else {
-		http.create_gang(client, gang_name);
-		res.send('Creating gang role!');
+		http.create_gang(client, gang_name).then(() => {
+			res.send('Creating gang role!');
+		});
 	}
 });
 
@@ -84,8 +85,9 @@ app.post('/webhooks/delete-gang', (req, res) => {
 		res.redirect('/error');
 	}
 	else {
-		http.delete_gang(client, gang_name);
-		res.send('Deleting gang role!');
+		http.delete_gang(client, gang_name).then(() => {
+			res.send('Deleting gang role!');
+		});
 	}
 });
 
@@ -96,8 +98,9 @@ app.post('/webhooks/add-to-gang', (req, res) => {
 		res.redirect('/error');
 	}
 	else {
-		http.add_to_gang(client, player, gang_name);
-		res.send('Adding player to gang!');
+		http.add_to_gang(client, player, gang_name).then(() => {
+			res.send('Adding player to gang!');
+		});
 	}
 });
 

@@ -3,7 +3,7 @@ const { staffRole, gangsCategory } = require('../commands/commands_config.json')
 const { Permissions } = require('discord.js');
 
 module.exports.create_gang = function (client, gang_name) {
-  client.guilds.fetch(guildId).then(guild => {
+  return client.guilds.fetch(guildId).then(guild => {
     guild.roles.create({
       name: gang_name,
       color: 'RANDOM',
@@ -51,7 +51,7 @@ module.exports.create_gang = function (client, gang_name) {
 }
 
 module.exports.add_to_gang = function (client, player, gang) {
-  client.guilds.fetch(guildId).then(guild => {
+  return client.guilds.fetch(guildId).then(guild => {
     guild.members.fetch(player).then(player => {
       player.roles.add(guild.roles.cache.find(role => role.name == gang));
     });
@@ -59,9 +59,9 @@ module.exports.add_to_gang = function (client, player, gang) {
 }
 
 module.exports.delete_gang = function (client, gang) {
-  client.guilds.fetch(guildId).then(guild => {
-    guild.roles.cache.find(role => role.name == gang).delete();
-    guild.channels.cache.find(channel => channel.name == `${gang.toLowerCase().replaceAll(" ", "-")}-text`).delete();
-    guild.channels.cache.find(channel => channel.name == `${gang}-voice`).delete();
+  return client.guilds.fetch(guildId).then(guild => {
+    guild.roles.cache.find(role => role.name == gang)?.delete();
+    guild.channels.cache.find(channel => channel.name == `${gang.toLowerCase().replaceAll(" ", "-")}-text`)?.delete();
+    guild.channels.cache.find(channel => channel.name == `${gang}-voice`)?.delete();
   });
 }
