@@ -47,7 +47,7 @@ module.exports.create_gang = function (client, gang_name) {
         ]
       });
     });
-  })
+  });
 }
 
 module.exports.add_to_gang = function (client, player, gang) {
@@ -55,7 +55,7 @@ module.exports.add_to_gang = function (client, player, gang) {
     guild.members.fetch(player).then(player => {
       player.roles.add(guild.roles.cache.find(role => role.name == gang));
     });
-  })
+  });
 }
 
 module.exports.delete_gang = function (client, gang) {
@@ -63,5 +63,21 @@ module.exports.delete_gang = function (client, gang) {
     guild.roles.cache.find(role => role.name == gang)?.delete();
     guild.channels.cache.find(channel => channel.name == `${gang.toLowerCase().replaceAll(" ", "-")}-text`)?.delete();
     guild.channels.cache.find(channel => channel.name == `${gang}-voice`)?.delete();
+  });
+}
+
+module.exports.remove_from_gang = function (client, player, gang) {
+  return client.guilds.fetch(guildId).then(guild => {
+    guild.members.fetch(player).then(player => {
+      player.roles.remove(guild.roles.cache.find(role => role.name == gang));
+    });
+  });
+}
+
+module.exports.rename_gang = function (client, gang, new_name) {
+  return client.guilds.fetch(guildId).then(guild => {
+    guild.roles.edit(guild.roles.cache.find(role => role.name == gang), { name: `${new_name}` });
+    guild.channels.cache.find(channel => channel.name == `${gang.toLowerCase().replaceAll(" ", "-")}-text`)?.edit({ name: `${new_name}-text` });
+    guild.channels.cache.find(channel => channel.name == `${gang}-voice`)?.edit({ name: `${new_name}-voice` });
   });
 }

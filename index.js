@@ -104,29 +104,31 @@ app.post('/webhooks/add-to-gang', (req, res) => {
 	}
 });
 
-// app.post('/webhooks/remove-from-gang', (req, res) => {
-// 	var gang_name = req.body.name;
-// 	var player = req.body.player;
-// 	if (!gang_name || !player) {
-// 		res.redirect('/error');
-// 	}
-// 	else {
-// 		res.send('Removing player from gang!');
-// 		http.remove_from_gang(client, player, gang_name);
-// 	}
-// });
+app.post('/webhooks/remove-from-gang', (req, res) => {
+	var gang_name = req.body.name;
+	var player = req.body.player;
+	if (!gang_name || !player) {
+		res.redirect('/error');
+	}
+	else {
+		http.remove_from_gang(client, player, gang_name).then(() => {
+			res.send('Removing player from gang!');
+		});
+	}
+});
 
-// app.post('/webhooks/rename-gang', (req, res) => {
-// 	var gang_name = req.body.name;
-// 	var new_name = req.body.new-name;
-// 	if (!gang_name || !new_name) {
-// 		res.redirect('/error');
-// 	}
-// 	else {
-// 		res.send('Renaming gang!');
-// 		http.rename_gang(client, gang_name, new_name);
-// 	}
-// });
+app.post('/webhooks/rename-gang', (req, res) => {
+	var gang_name = req.body.name;
+	var new_name = req.body.newName;
+	if (!gang_name || !new_name) {
+		res.redirect('/error');
+	}
+	else {
+		http.rename_gang(client, gang_name, new_name).then(() => {
+			res.send('Renaming gang!');
+		});
+	}
+});
 
 app.listen(port, () => {
 	console.log(`Listening on port ${port}`);
