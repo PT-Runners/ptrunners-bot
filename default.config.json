@@ -3,5 +3,6 @@
 	"guildId": "",
 	"token": "",
 	"game": "",
-	"webhook_token": ""
+	"webhook_token": "",
+	"sentry_dsn": ""
 }

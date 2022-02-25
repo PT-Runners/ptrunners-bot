@@ -1,3 +1,5 @@
+const Sentry = require("@sentry/node");
+const Tracing = require("@sentry/tracing");
 const http = require('./http_requests/http.js');
 
 const fs = require('fs');
@@ -6,7 +8,20 @@ const app = express();
 app.use(express.json());
 const port = 3000;
 const { Client, Collection, Intents } = require('discord.js');
-const { token, game, webhook_token } = require('./config.json');
+const { token, game, webhook_token, sentry_dsn } = require('./config.json');
+
+if(sentry_dsn) {
+	Sentry.init({
+		dsn: sentry_dsn,
+		release: "discord-bot@1.0.0",
+	  
+		// Set tracesSampleRate to 1.0 to capture 100%
+		// of transactions for performance monitoring.
+		// We recommend adjusting this value in production
+		tracesSampleRate: 1.0,
+	});
+}
+
 const { ticketsChannel, suggestionsChannel, verificationChannel } = require('./commands/commands_config.json');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
