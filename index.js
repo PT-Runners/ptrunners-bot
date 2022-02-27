@@ -88,8 +88,19 @@ app.post('/webhooks/create-gang', (req, res) => {
 		res.redirect('/error');
 	}
 	else {
-		http.create_gang(client, gang_name).then(() => {
-			res.send('Creating gang role!');
+		http.create_gang(client, gang_name)
+		.then(message => {
+			res.status(201);
+			res.send(message);
+		})
+		.catch(e => {
+			if(e == "Role already exists") {
+				res.status(302);
+			}else {
+				res.status(500);
+			}
+
+			res.send(e);
 		});
 	}
 });
