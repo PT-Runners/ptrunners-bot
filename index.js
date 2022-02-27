@@ -97,6 +97,7 @@ app.post('/webhooks/create-gang', (req, res) => {
 			if(e == "Role already exists") {
 				res.status(302);
 			}else {
+				Sentry.captureException(e);
 				res.status(500);
 			}
 
