@@ -5,3 +5,4 @@ config.json
 commands/commands_config.json
 logs.txt
 package-lock.json
+commands/error.txt
