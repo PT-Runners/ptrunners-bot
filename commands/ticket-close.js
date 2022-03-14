@@ -1,7 +1,8 @@
 const fs = require('fs');
 const { exec } = require('child_process');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { botLogs, ticketsChannel, ticketsRole, ticketsCategory, ticketsLogs } = require('./commands_config.json');
+const { MessageEmbed } = require('discord.js');
+const { botLogs, ticketsChannel, ticketsRole, ticketsCategory, ticketsLogs, ptrImage } = require('./commands_config.json');
 const { token } = require('../config.json');
 
 module.exports = {
@@ -45,8 +46,24 @@ module.exports = {
         else {
             interaction.guild.channels.fetch(ticketsLogs).then(ticketLogsChannel => 
             {
+                // const embed = new MessageEmbed()
+                //     .setColor('RANDOM')
+                //     .setAuthor('​', ptrImage, 'https://ptrunners.net')
+                //     .setTitle(`${interaction.channel.name} - ${dateTime}`)
                 ticketLogsChannel.send({
-                    files: [`../ticket-logs/${interaction.channel.name}.html`]
+                    embeds: [
+                        new MessageEmbed()
+                            .setColor('RANDOM')
+                            .setAuthor('​', ptrImage, 'https://ptrunners.net')
+                            .setTitle(`${interaction.channel.name} - ${dateTime}`)
+                    ]
+                });
+                ticketLogsChannel.send({
+                    files: [{
+                        attachment: `../ticket-logs/${interaction.channel.name}.html`,
+                        name: `${interaction.channel.name}.html`,
+                        description: 'Ticket log'
+                      }]
                 });
             });
             interaction.channel.delete();
