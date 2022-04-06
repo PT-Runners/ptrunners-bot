@@ -35,7 +35,7 @@ module.exports = {
 				return console.error(err);
 			}
 		});
-        const command = `dotnet /root/DiscordChatExporter/DiscordChatExporter.Cli.dll export -t ${token} -c ${interaction.channel.id} -o ../ticket-logs/${interaction.channel.name}.html`;
+        const command = `dotnet ../DiscordChatExporter/DiscordChatExporter.Cli.dll export -t ${token} -c ${interaction.channel.id} -o ../ticket-logs/${interaction.channel.name}.html`;
         exec(command,
     function (error, stdout, stderr) {
         // console.log('stdout: ' + stdout);
