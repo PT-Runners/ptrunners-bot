@@ -13,19 +13,19 @@ module.exports = {
 				.setRequired(true),
 			),
 	async execute(interaction) {
-        if (interaction.guild.members.resolve(interaction.options.getUser('user').id).voice.channel.id != waitRoom) {
+        if (interaction.guild.members.resolve(interaction.options.getUser('user').id).voice.channel?.id != waitRoom) {
             return interaction.reply({
                 content: 'O user a mover deve estar na sala de espera.',
                 ephemeral: true,
             });
         }
-        if (!interaction.member.voice.channel) {
+        if (!interaction.member.voice?.channel) {
             return interaction.reply({
                 content: 'Tens que estar numa sala de voz para usar este comando.',
                 ephemeral: true,
             });
         };
-        if (interaction.member.voice.channel.id == waitRoom) {
+        if (interaction.member.voice.channel?.id == waitRoom) {
             return interaction.reply({
                 content: 'Não te podes mover a ti mesmo para a sala de espera. >.<',
                 ephemeral: true,
