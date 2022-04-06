@@ -102,9 +102,9 @@ module.exports = {
 		const cTime = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
 		const dateTime = cDate + ' | ' + cTime;
 		interaction.guild.channels.fetch(botLogs).then(logChannel =>
-			{ logChannel.send(`${dateTime}: ${name} opened ticket - ${problem}.`);
+			{ logChannel.send(`${dateTime}: <@${interaction.user.id}> opened ticket - ${problem}.`);
 		});
-		fs.appendFile('logs.txt', `${dateTime}: <@${userId}> opened ticket - ${problem}.\n`, err => {
+		fs.appendFile('logs.txt', `${dateTime}: ${interaction.user.username} opened ticket - ${problem}.\n`, err => {
 			if (err) {
 				return console.error(err);
 			}
