@@ -84,3 +84,16 @@ module.exports.rename_gang = function (client, gang, new_name) {
     guild.channels.cache.find(channel => channel.name == `${gang.toLowerCase().replaceAll(" ", "-")}-voice`)?.edit({ name: `${new_name}-voice` });
   });
 }
+
+module.exports.get_voice_members = function (client) {
+  return client.guilds.fetch(guildId).then(guild => {
+    let userIds = [];
+    let channels = guild.channels.cache.filter(channel => channel.type === "GUILD_VOICE");
+    channels.forEach(channel => {
+      channel.members.forEach(member => {
+        userIds.push(member.id);
+      });
+    })
+    return userIds;
+  });
+}
