@@ -18,7 +18,7 @@ module.exports.create_gang = function (client, gang_name) {
         mentionable: true,
       })
       .then(guildRole => {
-        guild.channels.create(`${gang_name}-text`, {
+        guild.channels.create(`${gang_name.toLowerCase().replaceAll(" ", "-")}-text`, { //(desnecessário, o discord já faz este parsing automaticamente)
           parent: gangsCategory,
           type: 'GUILD_TEXT',
           permissionOverwrites: [
@@ -33,7 +33,7 @@ module.exports.create_gang = function (client, gang_name) {
           ],
           topic: `Sala de texto da gang ${gang_name}`,
         });
-        guild.channels.create(`${gang_name}-voice`, {
+        guild.channels.create(`${gang_name.toLowerCase().replaceAll(" ", "-")}-voice`, {
           parent: gangsCategory,
           type: 'GUILD_VOICE',
           permissionOverwrites: [
@@ -65,7 +65,7 @@ module.exports.delete_gang = function (client, gang) {
   return client.guilds.fetch(guildId).then(guild => {
     guild.roles.cache.find(role => role.name == gang)?.delete();
     guild.channels.cache.find(channel => channel.name == `${gang.toLowerCase().replaceAll(" ", "-")}-text`)?.delete();
-    guild.channels.cache.find(channel => channel.name == `${gang}-voice`)?.delete();
+    guild.channels.cache.find(channel => channel.name == `${gang.toLowerCase().replaceAll(" ", "-")}-voice`)?.delete();
   });
 }
 
@@ -81,6 +81,6 @@ module.exports.rename_gang = function (client, gang, new_name) {
   return client.guilds.fetch(guildId).then(guild => {
     guild.roles.edit(guild.roles.cache.find(role => role.name == gang), { name: `${new_name}` });
     guild.channels.cache.find(channel => channel.name == `${gang.toLowerCase().replaceAll(" ", "-")}-text`)?.edit({ name: `${new_name}-text` });
-    guild.channels.cache.find(channel => channel.name == `${gang}-voice`)?.edit({ name: `${new_name}-voice` });
+    guild.channels.cache.find(channel => channel.name == `${gang.toLowerCase().replaceAll(" ", "-")}-voice`)?.edit({ name: `${new_name}-voice` });
   });
 }
