@@ -10,6 +10,8 @@ const port = 3000;
 const { Client, Collection, Intents } = require('discord.js');
 const { token, game, webhook_token, sentry_dsn } = require('./config.json');
 
+const regexGangName = /[A-Za-z0-9 _áàéèíóúç]/g;
+
 if(sentry_dsn) {
 	Sentry.init({
 		dsn: sentry_dsn,
@@ -84,6 +86,7 @@ app.get('/error', (req, res) => {
 
 app.post('/webhooks/create-gang', (req, res) => {
 	var gang_name = req.body.name;
+	gang_name = gang_name.match(regexGangName).join('').trim();
 	if (!gang_name) {
 		res.redirect('/error');
 	}
@@ -108,6 +111,7 @@ app.post('/webhooks/create-gang', (req, res) => {
 
 app.post('/webhooks/delete-gang', (req, res) => {
 	var gang_name = req.body.name;
+	gang_name = gang_name.match(regexGangName).join('').trim();
 	if (!gang_name) {
 		res.redirect('/error');
 	}
@@ -120,6 +124,7 @@ app.post('/webhooks/delete-gang', (req, res) => {
 
 app.post('/webhooks/add-to-gang', (req, res) => {
 	var gang_name = req.body.name;
+	gang_name = gang_name.match(regexGangName).join('').trim();
 	var player = req.body.player;
 	if (!gang_name || !player) {
 		res.redirect('/error');
@@ -133,6 +138,7 @@ app.post('/webhooks/add-to-gang', (req, res) => {
 
 app.post('/webhooks/remove-from-gang', (req, res) => {
 	var gang_name = req.body.name;
+	gang_name = gang_name.match(regexGangName).join('').trim();
 	var player = req.body.player;
 	if (!gang_name || !player) {
 		res.redirect('/error');
@@ -146,7 +152,9 @@ app.post('/webhooks/remove-from-gang', (req, res) => {
 
 app.post('/webhooks/rename-gang', (req, res) => {
 	var gang_name = req.body.name;
+	gang_name = gang_name.match(regexGangName).join('').trim();
 	var new_name = req.body.newName;
+	new_name = new_name.match(regexGangName).join('').trim();
 	if (!gang_name || !new_name) {
 		res.redirect('/error');
 	}
