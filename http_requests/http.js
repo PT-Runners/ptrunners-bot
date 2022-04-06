@@ -30,10 +30,6 @@ module.exports.create_gang = function (client, gang_name) {
               id: guildRole.id,
               allow: [Permissions.FLAGS.VIEW_CHANNEL],
             },
-            {
-              id: guild.roles.resolve(staffRole),
-              allow: [Permissions.FLAGS.VIEW_CHANNEL],
-            },
           ],
           topic: `Sala de texto da gang ${gang_name}`,
         });
@@ -47,10 +43,6 @@ module.exports.create_gang = function (client, gang_name) {
             },
             {
               id: guildRole.id,
-              allow: [Permissions.FLAGS.VIEW_CHANNEL],
-            },
-            {
-              id: guild.roles.resolve(staffRole),
               allow: [Permissions.FLAGS.VIEW_CHANNEL],
             },
           ]
