@@ -1,8 +1,5 @@
-node_modules
-.env
-config.json
-.eslintrc.json
-commands/commands_config.json
-logs.txt
-package-lock.json
-commands/error.txt
+src/config.json
+src/commands/commands_config.json
+src/package-lock.json
+src/commands/error.txt
+DiscordChatExporter/
