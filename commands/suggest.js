@@ -11,6 +11,16 @@ module.exports = {
 		.setDescription('Cria uma sugestão')
 		.addStringOption(option =>
 			option
+			  .setName('server')
+			  .setDescription('Servidor a que se refere a sugestão')
+			  .addChoices([
+				  ['JailBreak', 'jailbreak'],
+				  ['Arenas', 'arenas']
+			    ])
+				.setRequired(true),
+		)
+		.addStringOption(option =>
+			option
 				.setName('título')
 				.setDescription('Escreve o título da sugestão')
 				.setRequired(true),
@@ -43,7 +53,7 @@ module.exports = {
 			embeds: [
 				new MessageEmbed()
 					.setColor('RANDOM')
-					.setTitle(interaction.options.getString('título'))
+					.setTitle(`${interaction.options.getString('tipo')} - ${interaction.options.getString('título')}`)
 					.setDescription(interaction.options.getString('sugestão'))
 					.setFooter(`Sugestão feita por ${interaction.user.username}`, ptrImage),
 			],
