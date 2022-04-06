@@ -94,7 +94,8 @@ app.post('/webhooks/create-gang', (req, res) => {
 		http.create_gang(client, gang_name)
 		.then(message => {
 			res.status(201);
-			res.send(message);
+			res.setHeader('Content-Type', 'application/json');
+			res.send(JSON.stringify({id: message}));
 		})
 		.catch(e => {
 			if(e == "Role already exists") {
@@ -116,7 +117,8 @@ app.post('/webhooks/delete-gang', (req, res) => {
 		res.redirect('/error');
 	}
 	else {
-		http.delete_gang(client, gang_name).then(() => {
+		http.delete_gang(client, gang_name)
+		.then(() => {
 			res.send('Deleting gang role!');
 		});
 	}
@@ -130,7 +132,8 @@ app.post('/webhooks/add-to-gang', (req, res) => {
 		res.redirect('/error');
 	}
 	else {
-		http.add_to_gang(client, player, gang_name).then(() => {
+		http.add_to_gang(client, player, gang_name)
+		.then(() => {
 			res.send('Adding player to gang!');
 		});
 	}
@@ -144,7 +147,8 @@ app.post('/webhooks/remove-from-gang', (req, res) => {
 		res.redirect('/error');
 	}
 	else {
-		http.remove_from_gang(client, player, gang_name).then(() => {
+		http.remove_from_gang(client, player, gang_name)
+		.then(() => {
 			res.send('Removing player from gang!');
 		});
 	}
@@ -159,10 +163,20 @@ app.post('/webhooks/rename-gang', (req, res) => {
 		res.redirect('/error');
 	}
 	else {
-		http.rename_gang(client, gang_name, new_name).then(() => {
+		http.rename_gang(client, gang_name, new_name)
+		.then(() => {
 			res.send('Renaming gang!');
 		});
 	}
+});
+
+app.get('/webhooks/discord-voice-members', (req, res) => {
+	http.get_voice_members(client)
+	.then((userIds) => {
+		res.status(200);
+		res.setHeader('Content-Type', 'application/json');
+		res.send(JSON.stringify({ids: userIds}));
+	})
 });
 
 app.listen(port, () => {
