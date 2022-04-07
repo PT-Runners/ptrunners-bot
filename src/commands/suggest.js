@@ -14,8 +14,8 @@ module.exports = {
 			  .setName('server')
 			  .setDescription('Servidor a que se refere a sugestão')
 			  .addChoices([
-				  ['JailBreak', 'jailbreak'],
-				  ['Arenas', 'arenas']
+				  ['JailBreak', 'JailBreak'],
+				  ['Arenas', 'Arenas']
 			    ])
 				.setRequired(true),
 		)
@@ -53,7 +53,7 @@ module.exports = {
 			embeds: [
 				new MessageEmbed()
 					.setColor('RANDOM')
-					.setTitle(`${interaction.options.getString('tipo')} - ${interaction.options.getString('título')}`)
+					.setTitle(`${interaction.options.getString('server')} - ${interaction.options.getString('título')}`)
 					.setDescription(interaction.options.getString('sugestão'))
 					.setFooter(`Sugestão feita por ${interaction.user.username}`, ptrImage),
 			],
