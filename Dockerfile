@@ -17,4 +17,5 @@ RUN npm install
 
 COPY . /bot
 
+RUN node deploy-commands.js
 CMD ["node", "index.js"]
