@@ -170,7 +170,7 @@ app.post('/webhooks/rename-gang', (req, res) => {
 	}
 });
 
-app.get('/webhooks/discord-voice-members', (req, res) => {
+app.post('/webhooks/discord-voice-members', (req, res) => {
 	http.get_voice_members(client)
 	.then((userIds) => {
 		res.status(200);
