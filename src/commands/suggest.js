@@ -15,7 +15,8 @@ module.exports = {
 			  .setDescription('Servidor a que se refere a sugestão')
 			  .addChoices([
 				  ['JailBreak', 'JailBreak'],
-				  ['Arenas', 'Arenas']
+				  ['Arenas', 'Arenas'],
+				  ['Discord', 'Discord']
 			    ])
 				.setRequired(true),
 		)
