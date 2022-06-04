@@ -1,5 +1,5 @@
 const { guildId } = require('../config.json');
-const { staffRole, gangsCategory } = require('../commands/commands_config.json');
+const { gangsCategory, mutedRole } = require('../commands/commands_config.json');
 const { Permissions } = require('discord.js');
 
 module.exports.create_gang = function (client, gang_name) {
@@ -30,6 +30,10 @@ module.exports.create_gang = function (client, gang_name) {
               id: guildRole.id,
               allow: [Permissions.FLAGS.VIEW_CHANNEL],
             },
+            {
+              id: guild.roles.resolve(mutedRole),
+              deny: [Permissions.FLAGS.SEND_MESSAGES],
+            },
           ],
           topic: `Sala de texto da gang ${gang_name}`,
         });
@@ -44,6 +48,10 @@ module.exports.create_gang = function (client, gang_name) {
             {
               id: guildRole.id,
               allow: [Permissions.FLAGS.VIEW_CHANNEL],
+            },
+            {
+              id: guild.roles.resolve(mutedRole),
+              deny: [Permissions.FLAGS.SPEAK],
             },
           ]
         });
