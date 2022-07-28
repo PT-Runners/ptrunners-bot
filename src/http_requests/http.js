@@ -37,24 +37,6 @@ module.exports.create_gang = function (client, gang_name) {
           ],
           topic: `Sala de texto da gang ${gang_name}`,
         });
-        guild.channels.create(`${gang_name.toLowerCase().replaceAll(" ", "-")}-voice`, {
-          parent: gangsCategory,
-          type: 'GUILD_VOICE',
-          permissionOverwrites: [
-            {
-              id: guild.roles.resolve(guild.roles.everyone.id),
-              deny: [Permissions.FLAGS.VIEW_CHANNEL],
-            },
-            {
-              id: guildRole.id,
-              allow: [Permissions.FLAGS.VIEW_CHANNEL],
-            },
-            {
-              id: guild.roles.resolve(mutedRole),
-              deny: [Permissions.FLAGS.SPEAK],
-            },
-          ]
-        });
         return guildRole.id;
       })
     })
@@ -73,7 +55,6 @@ module.exports.delete_gang = function (client, gang) {
   return client.guilds.fetch(guildId).then(guild => {
     guild.roles.cache.find(role => role.name == gang)?.delete();
     guild.channels.cache.find(channel => channel.name == `${gang.toLowerCase().replaceAll(" ", "-")}-text`)?.delete();
-    guild.channels.cache.find(channel => channel.name == `${gang.toLowerCase().replaceAll(" ", "-")}-voice`)?.delete();
   });
 }
 
@@ -89,19 +70,5 @@ module.exports.rename_gang = function (client, gang, new_name) {
   return client.guilds.fetch(guildId).then(guild => {
     guild.roles.edit(guild.roles.cache.find(role => role.name == gang), { name: `${new_name}` });
     guild.channels.cache.find(channel => channel.name == `${gang.toLowerCase().replaceAll(" ", "-")}-text`)?.edit({ name: `${new_name}-text` });
-    guild.channels.cache.find(channel => channel.name == `${gang.toLowerCase().replaceAll(" ", "-")}-voice`)?.edit({ name: `${new_name}-voice` });
-  });
-}
-
-module.exports.get_voice_members = function (client) {
-  return client.guilds.fetch(guildId).then(guild => {
-    let userIds = [];
-    let channels = guild.channels.cache.filter(channel => channel.type === "GUILD_VOICE");
-    channels.forEach(channel => {
-      channel.members.forEach(member => {
-        userIds.push(member.id);
-      });
-    })
-    return userIds;
   });
 }

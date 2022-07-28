@@ -170,15 +170,6 @@ app.post('/webhooks/rename-gang', (req, res) => {
 	}
 });
 
-app.post('/webhooks/discord-voice-members', (req, res) => {
-	http.get_voice_members(client)
-	.then((userIds) => {
-		res.status(200);
-		res.setHeader('Content-Type', 'application/json');
-		res.send(JSON.stringify({ids: userIds}));
-	})
-});
-
 app.listen(port, () => {
 	console.log(`Listening on port ${port}`);
 });
