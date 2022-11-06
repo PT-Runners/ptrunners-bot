@@ -11,6 +11,7 @@ const { Client, Collection, Intents } = require('discord.js');
 const { token, game, webhook_token, sentry_dsn } = require('./config.json');
 
 const regexGangName = /[A-Za-z0-9 _áàéèíóúç]/g;
+const regexSquadName = /[A-Za-z0-9 _áàéèíóúç]/g;
 
 if(sentry_dsn) {
 	Sentry.init({
@@ -77,18 +78,14 @@ app.use('/webhooks', (req, res, next) => {
 	if (webhookToken && webhookToken == webhook_token) {
 		next();
 	}
-	else res.redirect('/error');
-});
-
-app.get('/error', (req, res) => {
-	res.send('Wrong request');
+	else res.status(401).send();
 });
 
 app.post('/webhooks/create-gang', (req, res) => {
 	var gang_name = req.body.name;
 	gang_name = gang_name.match(regexGangName).join('').trim();
 	if (!gang_name) {
-		res.redirect('/error');
+		res.status(400).send();
 	}
 	else {
 		http.create_gang(client, gang_name)
@@ -114,7 +111,7 @@ app.post('/webhooks/delete-gang', (req, res) => {
 	var gang_name = req.body.name;
 	gang_name = gang_name.match(regexGangName).join('').trim();
 	if (!gang_name) {
-		res.redirect('/error');
+		res.status(400).send();
 	}
 	else {
 		http.delete_gang(client, gang_name)
@@ -129,7 +126,7 @@ app.post('/webhooks/add-to-gang', (req, res) => {
 	gang_name = gang_name.match(regexGangName).join('').trim();
 	var player = req.body.player;
 	if (!gang_name || !player) {
-		res.redirect('/error');
+		res.status(400).send();
 	}
 	else {
 		http.add_to_gang(client, player, gang_name)
@@ -144,7 +141,7 @@ app.post('/webhooks/remove-from-gang', (req, res) => {
 	gang_name = gang_name.match(regexGangName).join('').trim();
 	var player = req.body.player;
 	if (!gang_name || !player) {
-		res.redirect('/error');
+		res.status(400).send();
 	}
 	else {
 		http.remove_from_gang(client, player, gang_name)
@@ -160,12 +157,100 @@ app.post('/webhooks/rename-gang', (req, res) => {
 	var new_name = req.body.newName;
 	new_name = new_name.match(regexGangName).join('').trim();
 	if (!gang_name || !new_name) {
-		res.redirect('/error');
+		res.status(400).send();
 	}
 	else {
 		http.rename_gang(client, gang_name, new_name)
 		.then(() => {
 			res.send('Renaming gang!');
+		});
+	}
+});
+
+app.post('/webhooks/create-squad', (req, res) => {
+	var squad_name = req.body.name;
+	squad_name = squad_name.match(regexSquadName).join('').trim();
+	if (!squad_name) {
+		res.status(400).send();
+	}
+	else {
+		http.create_squad(client, squad_name)
+		.then(message => {
+			res.status(201);
+			res.setHeader('Content-Type', 'application/json');
+			res.send(JSON.stringify({id: message}));
+		})
+		.catch(e => {
+			if(e == "Role already exists") {
+				res.status(302);
+			}else {
+				Sentry.captureException(e);
+				res.status(500);
+			}
+
+			res.send(e);
+		});
+	}
+});
+
+app.post('/webhooks/delete-squad', (req, res) => {
+	var squad_name = req.body.name;
+	squad_name = squad_name.match(regexSquadName).join('').trim();
+	if (!squad_name) {
+		res.status(400).send();
+	}
+	else {
+		http.delete_squad(client, squad_name)
+		.then(() => {
+			res.send('Deleting squad role!');
+		});
+	}
+});
+
+app.post('/webhooks/add-to-squad', (req, res) => {
+	var squad_name = req.body.name;
+	squad_name = squad_name.match(regexSquadName).join('').trim();
+	var player = req.body.player;
+	if (!squad_name || !player) {
+		res.status(400).send();
+	}
+	else {
+		http.add_to_squad(client, player, squad_name)
+		.then(() => {
+			res.send('Adding player to squad!');
+		});
+	}
+});
+
+app.post('/webhooks/remove-from-squad', (req, res) => {
+	var squad_name = req.body.name;
+	if(squad_name) {
+		squad_name = squad_name.match(regexSquadName).join('').trim();
+	}
+	var player = req.body.player;
+	if (!squad_name || !player) {
+		res.status(400).send();
+	}
+	else {
+		http.remove_from_squad(client, player, squad_name)
+		.then(() => {
+			res.send('Removing player from squad!');
+		});
+	}
+});
+
+app.post('/webhooks/rename-squad', (req, res) => {
+	var squad_name = req.body.name;
+	squad_name = squad_name.match(regexSquadName).join('').trim();
+	var new_name = req.body.newName;
+	new_name = new_name.match(regexSquadName).join('').trim();
+	if (!squad_name || !new_name) {
+		res.status(400).send();
+	}
+	else {
+		http.rename_squad(client, squad_name, new_name)
+		.then(() => {
+			res.send('Renaming squad!');
 		});
 	}
 });
