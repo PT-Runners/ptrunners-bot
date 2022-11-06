@@ -11,8 +11,7 @@ module.exports = {
 		.setDescription('Fecha o ticket onde o comando é chamado'),
 	async execute(interaction) {
         //  no need to check for roles since everyone who can see the ticket can close it
-        if (interaction.channel.parentId != ticketsCategory ||
-            interaction.channel.id == ticketsChannel) {
+        if (interaction.channel.parentId != ticketsCategory || !interaction.channel.name.includes("ticket") || interaction.channel.id == ticketsChannel) {
             return interaction.reply({
                 content: 'Isto não é um ticket!',
                 ephemeral: true,
