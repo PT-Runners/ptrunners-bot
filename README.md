@@ -15,6 +15,18 @@ How to run:
 - Finally run:
 
 ```
-docker build -t discord-bot .
-docker run -dp 3000:3000 discord-bot
+docker-compose up -d --build
+```
+
+For ssl and reverse proxy we are using Caddy
+
+How to do:
+
+```
+cp data/caddy/Caddyfile.example data/caddy/Caddyfile  
+
+docker-compose -f docker-compose.yml -f docker-compose.caddy.yml up -d --build
+#or
+cp docker-compose.caddy.yml docker-compose.override.yml
+docker-compose up -d --build
 ```

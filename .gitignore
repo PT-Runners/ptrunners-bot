@@ -3,3 +3,5 @@ src/commands/commands_config.json
 src/package-lock.json
 src/commands/error.txt
 DiscordChatExporter/
+data/caddy/Caddyfile
+docker-compose.override.yml

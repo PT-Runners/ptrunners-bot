@@ -12,6 +12,9 @@ RUN wget https://packages.microsoft.com/config/ubuntu/21.04/packages-microsoft-p
 RUN mkdir -p /bot/src
 WORKDIR /bot/src
 
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
 COPY src/package.json /bot/src/
 RUN npm install
 
